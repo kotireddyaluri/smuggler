@@ -227,7 +227,11 @@ class Desyncr():
 				_me = sys.argv[0]
 			#fname = os.path.realpath(os.path.dirname(_me)) + "/payloads/%s_%s_%s.txt" % (furl,ptype,name)
 			timestr= datetime.now().strftime("%Y_%m_%d-%I_%M_%S_%f_%p")
-			fname = os.environ['HOME']+"/sectools/myscanner-output/reports/smuggler/"+furl+"_"+str(timestr)+".txt"
+			fname = os.environ['HOME']+"/sectools/myscanner-output/reports/smuggler"
+			if not os.path.exists(fname+"/"+smhost):
+				os.makedirs(fname+"/"+smhost)
+			
+			fname = os.environ['HOME']+"/sectools/myscanner-output/reports/smuggler/"+smhost+"/"+str(timestr)+".txt"
 			pretty_print("CRITICAL", "%s Payload: %s URL: %s\n" % \
 			(Fore.MAGENTA+ptype, Fore.CYAN+fname+Fore.MAGENTA, Fore.CYAN+self._url))
 			with open(fname, 'wb') as file:
